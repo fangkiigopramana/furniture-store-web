@@ -9,9 +9,23 @@
                 <li class="nav-item {{ Route::is('home') ? 'active' : '' }}" key="index">
                     <a class="nav-link" aria-current="page" href="{{route('home')}}" title="This link direct to home"> Home </a>
                 </li>
-                <li class="nav-item {{ Route::is('shop') ? 'active' : '' }}" key="index">
-                    <a class="nav-link" aria-current="page" href="{{route('shop')}}" title="This link direct to Shop"> Shop </a>
+                @hasanyrole('Buyer')
+                <li class="nav-item {{ Route::is('product_catalog') ? 'active' : '' }}" key="index">
+                    <a class="nav-link" aria-current="page" href="{{route('product_catalog')}}" title="This link direct to Product Catalogue<"> Product Catalogue</a>
                 </li>
+                <li class="nav-item {{ Route::is('faq') ? 'active' : '' }}" key="index">
+                    <a class="nav-link" aria-current="page" href="{{route('faq')}}" title="This link direct to Faq"> FAQ </a>
+                </li>
+                @endhasanyrole
+                
+                @hasanyrole('Seller')
+                <li class="nav-item {{ Route::is('my_products') ? 'active' : '' }}" key="index">
+                    <a class="nav-link" aria-current="page" href="#" title="This link direct to Your Products">Produk saya</a>
+                </li>
+                <li class="nav-item {{ Route::is('orders') ? 'active' : '' }}" key="index">
+                    <a class="nav-link" aria-current="page" href="#" title="This link direct to Order">Pesanan</a>
+                </li>
+                @endhasanyrole
             </ul>
             @auth                    
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
@@ -21,10 +35,17 @@
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><p class="dropdown-item fw-bolder">{{Auth::user()->name . ' - ' . Auth::user()->getRoleNames()[0]}}</p></li>
                             <li><hr class="dropdown-divider"></li>
+                            @hasanyrole('Buyer')
+                            <li><a class="dropdown-item" href="#">Profil Pengguna</a></li>
+                            <li><a class="dropdown-item" href="#">Pesanan</a></li>
+                            @endhasanyrole
+                            
+                            @hasanyrole('Seller')
+                            <li><a class="dropdown-item" href="#">Profil Toko</a></li>
+                            <li><a class="dropdown-item" href="#">Laporan Penjualan</a></li>
+                            @endhasanyrole
                             <li><a class="dropdown-item" href="#signout">Sign out</a></li>
                         </ul>
                         </div>

@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="{{asset('assets/css/tiny-slider.css')}}">
 </head>
 <body>
+
     @include('partials.navbar')
     @yield('content')
 
-    
+    @include('sweetalert::alert')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/custom.js')}}"></script>
     <script src="{{asset('assets/js/tiny-slider.js')}}"></script>
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    @stack('script')
+
 </body>
 </html>

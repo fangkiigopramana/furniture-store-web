@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/shop',[ShopController::class, 'index'])->name('shop');
+Route::get('/product-catalog',[ShopController::class, 'index'])->name('product_catalog');
+Route::get('/search',[ShopController::class, 'search'])->name('products.search');
 Route::controller(AuthController::class)->group(function(){
     Route::prefix('login')->name('login.')->group(function () {
         Route::get('/', 'login')->name('index');
@@ -20,6 +21,4 @@ Route::controller(AuthController::class)->group(function(){
     });
 });
 
-Route::get('/contoh',function () {
-    return 'ini';
-})->middleware(['auth']);
+Route::view('/frequently-asked-questions','faq')->name('faq');
