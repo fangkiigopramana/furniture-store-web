@@ -7,14 +7,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item {{ Route::is('home') ? 'active' : '' }}" key="index">
-                    <a class="nav-link" aria-current="page" href="{{route('home')}}" title="This link direct to home"> Home </a>
+                    <a class="nav-link" aria-current="page" href="{{route('home')}}" wire:navigate title="This link direct to home"> Home </a>
                 </li>
                 @hasanyrole('Buyer')
                 <li class="nav-item {{ Route::is('product_catalog') ? 'active' : '' }}" key="index">
-                    <a class="nav-link" aria-current="page" href="{{route('product_catalog')}}" title="This link direct to Product Catalogue<"> Product Catalogue</a>
+                    <a class="nav-link" aria-current="page" href="{{route('product_catalog')}}" wire:navigate title="This link direct to Product Catalogue<"> Product Catalogue</a>
                 </li>
                 <li class="nav-item {{ Route::is('faq') ? 'active' : '' }}" key="index">
-                    <a class="nav-link" aria-current="page" href="{{route('faq')}}" title="This link direct to Faq"> FAQ </a>
+                    <a class="nav-link" aria-current="page" href="{{route('faq')}}" wire:navigate title="This link direct to Faq"> FAQ </a>
                 </li>
                 @endhasanyrole
                 
@@ -50,16 +50,16 @@
                         </ul>
                         </div>
                 </li>
-                <li><a class="nav-link" href="cart.html"><img src="{{asset('/assets/images/cart.svg')}}" alt="Cart Image"></a></li>
+                <li><a class="nav-link" href="#"><img src="{{asset('/assets/images/cart.svg')}}" alt="Cart Image"></a></li>
             </ul>
             @endauth
             @guest                    
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item {{ Route::is('login.index') ? 'active' : '' }}">
-                    <a class="nav-link fw-semibold fs-7" href="{{route('login.index')}}">Login</a>
+                <li class="nav-item {{ Route::is('sign-in') ? 'active' : '' }}">
+                    <a class="nav-link fw-semibold fs-7" href="{{route('sign-in')}}" wire:navigate>Sign In</a>
                 </li>
-                <li class="nav-item {{ Route::is('register.index') ? 'active' : '' }}">
-                    <a class="nav-link fw-semibold fs-7" href="{{route('register.index')}}">Register</a>
+                <li class="nav-item {{ Route::is('sign-up') ? 'active' : '' }}">
+                    <a class="nav-link fw-semibold fs-7" href="{{route('sign-up')}}" wire:navigate>Sign Up</a>
                 </li>
             </ul>
             @endguest

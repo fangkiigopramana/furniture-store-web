@@ -1,8 +1,5 @@
-@extends("layouts.app")
-@section('page_name','Bantuan')
-@section("content")
 <section class="container pt-5">
-    <h3 class="text-center mb-3">Bantuan</h3>
+    <h3 class="text-center mb-3">FAQ</h3>
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -57,4 +54,3 @@
         </div>
     </div>
 </section>
-@endsection

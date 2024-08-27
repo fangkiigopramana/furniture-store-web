@@ -1,24 +1,16 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ShopController;
-use GuzzleHttp\Client;
+use App\Livewire\FAQ;
+use App\Livewire\Home;
+use App\Livewire\ProductCatalog;
+use App\Livewire\SignIn;
+use App\Livewire\SignUp;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/product-catalog',[ShopController::class, 'index'])->name('product_catalog');
-Route::get('/search',[ShopController::class, 'search'])->name('products.search');
-Route::controller(AuthController::class)->group(function(){
-    Route::prefix('login')->name('login.')->group(function () {
-        Route::get('/', 'login')->name('index');
-        Route::post('/auth', 'authenticate')->name('authenticate');
-    });
-    
-    Route::prefix('register')->name('register.')->group(function () {
-        Route::get('/','register')->name('index');
-    });
-});
+Route::get('/', Home::class)->name('home');
+Route::get('/sign-in', SignIn::class)->name('sign-in')->middleware('guest');
+Route::get('/sign-up', SignUp::class)->name('sign-up')->middleware('guest');
 
-Route::view('/frequently-asked-questions','faq')->name('faq');
+Route::get('/product-catalog',ProductCatalog::class)->name('product_catalog')->middleware('auth');
+Route::get('/faq',FAQ::class)->name('faq');
