@@ -30,6 +30,11 @@ class SignIn extends Component
 
     }
 
+    public function signout(){
+        auth()->logout();
+        return redirect()->route('sign-in');
+    }
+
     public function render()
     {
 

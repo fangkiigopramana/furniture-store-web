@@ -46,7 +46,7 @@
                             <li><a class="dropdown-item" href="#">Profil Toko</a></li>
                             <li><a class="dropdown-item" href="#">Laporan Penjualan</a></li>
                             @endhasanyrole
-                            <li><a class="dropdown-item" href="#signout">Sign out</a></li>
+                            <li><a class="dropdown-item" href="{{route('sign-out')}}" wire:navigate>Sign out</a></li>
                         </ul>
                         </div>
                 </li>
