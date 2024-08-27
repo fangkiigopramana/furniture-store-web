@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'furniture_api'=> [
+        'url' => env('FURNITURE_API_URL'),
+    ]
+
 ];

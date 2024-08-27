@@ -9,7 +9,7 @@ class FurnitureAPIService
     public function allProduct($limit = 0)
     {
         $client = new Client();
-        $all_product = $client->request('GET', 'https://furni-store.kihub.net/api/products?limit='.$limit);
+        $all_product = $client->request('GET', config('services.furniture_api.url').'/products?limit='.$limit);
 
         if ($all_product->getStatusCode() == 200) {
             $response = json_decode($all_product->getBody()->getContents(), true)['datas'];
@@ -23,7 +23,7 @@ class FurnitureAPIService
     public function allType()
     {
         $client = new Client();
-        $types = $client->request('GET', 'https://furni-store.kihub.net/api/types');
+        $types = $client->request('GET', config('services.furniture_api.url').'/types');
 
         if ($types->getStatusCode() == 200) {
             $response = json_decode($types->getBody()->getContents(), true)['datas'];
