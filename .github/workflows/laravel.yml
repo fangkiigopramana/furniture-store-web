@@ -36,5 +36,6 @@ jobs:
         DB_DATABASE: furni_store_db
         DB_USERNAME: root
         DB_PASSWORD: root
-      run: php artisan migrate --seed
-      run: php artisan test
+      run: 
+        php artisan migrate --seed
+        php artisan test
