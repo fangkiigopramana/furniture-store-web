@@ -5,41 +5,50 @@ namespace App\Livewire;
 use App\Models\Cart;
 use App\Services\FurnitureAPIService;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductCatalog extends Component
 {
 
-    #[Rule('required')]
-    public string $product_name = "";
 
-    public function addToCart(FurnitureAPIService $service)
+    public function addToCart(FurnitureAPIService $service, $product_name)
     {
-        $product = $service->oneProduct(1, $this->product_name);
+        $product = $service->oneProduct(200, $product_name);
         $product_name = $product['name'];
         $price = $product['price'];
 
-        Cart::updateOrCreate(
-            [
-                'user_id' => auth()->id(),
-                'product_name' => $product_name
-            ],
-            [
+        $cartItem = Cart::where('user_id', auth()->id())
+            ->where('product_name', $product_name)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->update([
                 'quantity' => DB::raw('quantity + 1'),
-                'total_price' => DB::raw("($price * (quantity + 1))")
-            ]
-        );
-        Alert::success('Sukses','Tambah ke keranjang berhasil');
+                'total_price' => DB::raw("total_price + $price")
+            ]);
+        } else {
+            Cart::create([
+                'user_id' => auth()->id(),
+                'product_name' => $product_name,
+                'quantity' => 1,
+                'total_price' => $price
+            ]);
+        }
+
+        Alert::success('Sukses', 'Tambah ke keranjang berhasil');
         return $this->redirect('/product-catalog', true);
     }
 
+    #[Url()] 
+    public $search = '';
+
     public function render(FurnitureAPIService $furnitureService)
     {
-        $all_products = $furnitureService->allProduct();
-        return view('product-catalog',[
-            'products' => $all_products
+        $all_products = $furnitureService->allProduct($this->search);
+        return view('product-catalog', [
+            'products' => $all_products,
         ]);
     }
 }

@@ -6,10 +6,10 @@ use GuzzleHttp\Client;
 class FurnitureAPIService
 {
 
-    public function allProduct($limit = 0)
+    public function allProduct($name)
     {
         $client = new Client();
-        $all_product = $client->request('GET', config('services.furniture_api.url').'/products?limit='.$limit);
+        $all_product = $client->request('GET', config('services.furniture_api.url').'/products?name='.$name);
 
         if ($all_product->getStatusCode() == 200) {
             $response = json_decode($all_product->getBody()->getContents(), true)['datas'];

@@ -18,5 +18,11 @@
             </tr>
             @endforeach
         </tbody>
+        <footer>
+            <tr>
+                <th class="text-center" colspan="3">TOTAL</th>
+                <td>{{'Rp '.number_format($total_price_cart,0,' ','.')}}</td>
+            </tr>
+        </footer>
     </table>
 </section>

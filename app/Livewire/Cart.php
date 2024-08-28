@@ -3,10 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Cart as ModelsCart;
-use App\Services\FurnitureAPIService;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class Cart extends Component
@@ -14,9 +10,11 @@ class Cart extends Component
     public function render()
     {
         $carts = ModelsCart::all();
+        $total_price_cart = $carts->sum('total_price');
 
         return view('cart', [
-            'carts' => $carts
+            'carts' => $carts,
+            'total_price_cart' => $total_price_cart,
         ]);
     }
 }
