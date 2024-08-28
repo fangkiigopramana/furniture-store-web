@@ -12,7 +12,7 @@
                </div>
                <div class="col-lg-7">
                    <div class="hero-img-wrap">
-                       <img src="{{asset('/assets/images/couch.png')}}" class="img-fluid">
+                        <img src="{{ asset('/assets/images/couch.png') }}" class="img-fluid w-100 w-md-75 w-sm-50 mx-auto d-block">
                    </div>
                </div>
            </div>
