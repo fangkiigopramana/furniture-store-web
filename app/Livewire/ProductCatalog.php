@@ -17,10 +17,11 @@ class ProductCatalog extends Component
 
     public function addToCart(FurnitureAPIService $service)
     {
-        $price = $service->oneProduct(1, $this->product_name)['price'];
-        $product_name =$this->product_name;
+        $product = $service->oneProduct(1, $this->product_name);
+        $product_name = $product['name'];
+        $price = $product['price'];
 
-        $cart = Cart::updateOrCreate(
+        Cart::updateOrCreate(
             [
                 'user_id' => auth()->id(),
                 'product_name' => $product_name
@@ -31,6 +32,7 @@ class ProductCatalog extends Component
             ]
         );
         Alert::success('Sukses','Tambah ke keranjang berhasil');
+        return $this->redirect('/product-catalog', true);
     }
 
     public function render(FurnitureAPIService $furnitureService)

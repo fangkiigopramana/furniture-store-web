@@ -14,7 +14,7 @@
                 <th scope="row">{{$loop->iteration}}</th>
                 <td>{{$cart->product_name}}</td>
                 <td>{{$cart->quantity}}</td>
-                <td>{{$cart->total_price}}</td>
+                <td>{{'Rp '.number_format($cart->total_price,0,' ','.')}}</td>
             </tr>
             @endforeach
         </tbody>
