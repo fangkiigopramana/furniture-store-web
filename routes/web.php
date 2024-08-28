@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Cart;
 use App\Livewire\FAQ;
 use App\Livewire\Home;
 use App\Livewire\ProductCatalog;
@@ -13,5 +14,6 @@ Route::get('/sign-in', SignIn::class)->name('sign-in')->middleware('guest');
 Route::get('/sign-out', [SignIn::class,'signout'])->name('sign-out')->middleware('auth');
 Route::get('/sign-up', SignUp::class)->name('sign-up')->middleware('guest');
 
-Route::get('/product-catalog',ProductCatalog::class)->name('product_catalog')->middleware('auth');
-Route::get('/faq',FAQ::class)->name('faq');
+Route::get('/product-catalog', ProductCatalog::class)->name('product_catalog')->middleware('auth');
+Route::get('/faq', FAQ::class)->name('faq');
+Route::get('/cart', Cart::class)->name('cart');

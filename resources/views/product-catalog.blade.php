@@ -12,7 +12,7 @@
                 <!-- Start Column-->
                 @foreach ($products as $product )
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" key="{{$loop->iteration}}">
-                    <a class="product-item" href="javascript:void(0);">
+                    <a class="product-item" type="button" wire:click="addToCart">
                         <img src="{{$product['img_link']}}" alt="Image" class="img-fluid product-thumbnail">
                         <h3 class="product-title">{{ $product['name'] }}</h3>
                         <strong class="product-price">{{ $product['price'] }}</strong>
