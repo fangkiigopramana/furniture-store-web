@@ -55,8 +55,8 @@
             @endauth
             @guest                    
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item {{ Route::is('sign-in') ? 'active' : '' }}">
-                    <a class="nav-link fw-semibold fs-7" href="{{route('sign-in')}}" wire:navigate>Sign In</a>
+                <li class="nav-item {{ Route::is('login') ? 'active' : '' }}">
+                    <a class="nav-link fw-semibold fs-7" href="{{route('login')}}" wire:navigate>Sign In</a>
                 </li>
                 <li class="nav-item {{ Route::is('sign-up') ? 'active' : '' }}">
                     <a class="nav-link fw-semibold fs-7" href="{{route('sign-up')}}" wire:navigate>Sign Up</a>

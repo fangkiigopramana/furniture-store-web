@@ -37,9 +37,9 @@
             </form>
             <p>
                 @if ($title == "Sign In")
-                    Don't have an account? <a href="{{ route("sign-up") }}" wire:navigate>Sign Up Now!</a>
+                    Don't have an account? <a href="{{ route('sign-up') }}" wire:navigate>Sign Up Now!</a>
                 @else
-                    Already an account? <a href="{{ route("sign-in") }}" wire:navigate>Sign In Now!</a>
+                    Already an account? <a href="{{ route('login') }}" wire:navigate>Sign In Now!</a>
                 @endif
             </p>
         </div>

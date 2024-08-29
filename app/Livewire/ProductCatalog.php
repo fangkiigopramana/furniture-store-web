@@ -12,7 +12,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ProductCatalog extends Component
 {
 
-
     public function addToCart(FurnitureAPIService $service, $product_name)
     {
         $product = $service->oneProduct(200, $product_name);
@@ -26,14 +25,13 @@ class ProductCatalog extends Component
         if ($cartItem) {
             $cartItem->update([
                 'quantity' => DB::raw('quantity + 1'),
-                'total_price' => DB::raw("total_price + $price")
             ]);
         } else {
             Cart::create([
                 'user_id' => auth()->id(),
                 'product_name' => $product_name,
                 'quantity' => 1,
-                'total_price' => $price
+                'price' => $price,
             ]);
         }
 
