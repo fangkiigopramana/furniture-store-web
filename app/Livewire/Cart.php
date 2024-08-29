@@ -16,7 +16,11 @@ class Cart extends Component
         $product = ModelsCart::findOrFail($product_id);
         $product->quantity++;
         $product->save();
-        $this->total_purchase += ($product->price);
+
+        // Hanya update total_purchase jika item sudah checked
+        if (in_array($product_id, $this->checkedItems)) {
+            $this->total_purchase += $product->price;
+        }
     }
 
     public function decrease($product_id)
@@ -25,8 +29,11 @@ class Cart extends Component
         if ($product->quantity > 1) {
             $product->quantity--;
             $product->save();
-            $this->total_purchase -= ($product->price);
 
+            // Hanya update total_purchase jika item sudah checked
+            if (in_array($product_id, $this->checkedItems)) {
+                $this->total_purchase -= $product->price;
+            }
         }
     }
 
@@ -49,7 +56,7 @@ class Cart extends Component
 
         foreach ($carts as $cart) {
             $productDetails = $service->allProduct($cart->product_name);
-            $cart->image_url = $productDetails[0]['img_link'] ?? null; 
+            $cart->image_url = $productDetails[0]['img_link'] ?? null;
         }
 
         return view('cart', [
