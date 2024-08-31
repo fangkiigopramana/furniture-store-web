@@ -51,7 +51,32 @@ class FurnitureAPIService
         return $response;
     }
 
-    public function login($email, $password)
+    public function register($datas)
+    {
+        $client = new Client();
+        $response = [];
+
+        try {
+            $types = $client->request('POST', config('services.furniture_api.url') . '/register', [
+                'json' => [
+                    'name' => $datas['name'],
+                    'email' => $datas['email'],
+                    'password' => $datas['password']
+                ]
+            ]);
+
+            if ($types->getStatusCode() == 200) {
+                $response = json_decode($types->getBody()->getContents(), true);
+            }
+        } catch (RequestException $e) {
+            
+            $errorMessage = $e->getMessage();
+        }
+
+        return $response;
+    }
+
+    public function login($datas)
     {
         $client = new Client();
         $response = [];
@@ -59,8 +84,8 @@ class FurnitureAPIService
         try {
             $types = $client->request('POST', config('services.furniture_api.url') . '/login', [
                 'json' => [
-                    'email' => $email,
-                    'password' => $password
+                    'email' => $datas['email'],
+                    'password' => $datas['password']
                 ]
             ]);
 

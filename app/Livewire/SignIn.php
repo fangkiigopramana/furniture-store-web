@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Services\FurnitureAPIService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Rule;
@@ -20,6 +21,14 @@ class SignIn extends Component
     {
 
         if (Auth::attempt($this->validate())) {
+            $service = new FurnitureAPIService();
+            $login = $service->login([
+                'email' => $this->email,
+                'password' => $this->password,
+            ]);
+
+            $token = $login['token'];
+            session(['token' => $token]);
             Alert::success('Success', 'Login Successfully');
             return redirect('/');
         }

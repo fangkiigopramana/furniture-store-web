@@ -13,6 +13,14 @@
                             <div id="namelHelp" class="form-text text-danger">{{$message}}</div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select class="form-select" aria-label="Default select role" wire:model="role" required>
+                            <option selected>Pilih Role</option>
+                            <option value="Buyer">Pembeli</option>
+                            <option value="Seller">Penjual</option>
+                        </select>
+                    </div>
                 @endif
 
                 <div class="mb-3">

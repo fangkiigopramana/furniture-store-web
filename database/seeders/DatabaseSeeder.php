@@ -18,20 +18,5 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class
         ]);
-
-        $buyer = User::create([
-            'name' => 'Buyer 1',
-            'email' => 'buyer1@gmail.com',
-            'password' => Hash::make('buyerpertama'),
-        ]);
-        $buyer->assignRole('Buyer');
-        
-        
-        $seller = User::create([
-            'name' => 'Seller 1',
-            'email' => 'seller1@gmail.com',
-            'password' => Hash::make('sellerpertama'),
-        ]);
-        $seller->assignRole('Seller');
     }
 }
