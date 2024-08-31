@@ -28,13 +28,11 @@
                                     <i class="bi bi-heart fs-4 addWishlistButton" onclick="addToWishlist()"></i>
                                 </div>
                             </div>
-                            <div class="input-group quantity-counter d-inline-flex align-items-center">
-                                <button class="btn btn-sm btn-outline-secondary btn-sm" type="button"
-                                    wire:click="decrease('{{ $cart->id }}')">-</button>
-                                <h4 class="text-center px-5">{{ $cart->quantity }} </h4>
-                                <button class="btn btn-sm btn-outline-secondary btn-sm" type="button"
-                                    wire:click="increase('{{ $cart->id }}')">+</button>
-                            </div>
+                            <div class="input-group d-flex justify-content-center align-items-center">
+                                <button class="btn btn-outline-secondary btn-sm" type="button" wire:click="decrease('{{ $cart->id }}')">-</button>
+                                <span class="form-control text-center px-3">{{ $cart->quantity }}</span>
+                                <button class="btn btn-outline-secondary btn-sm" type="button" wire:click="increase('{{ $cart->id }}')">+</button>
+                            </div>                            
                         </div>
 
                     </div>

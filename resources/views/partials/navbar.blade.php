@@ -19,8 +19,8 @@
                 @endhasanyrole
                 
                 @hasanyrole('Seller')
-                <li class="nav-item {{ Route::is('my_products') ? 'active' : '' }}" key="index">
-                    <a class="nav-link" aria-current="page" href="#" title="This link direct to Your Products">Produk saya</a>
+                <li class="nav-item {{ Route::is('my-product') ? 'active' : '' }}" key="index">
+                    <a class="nav-link" aria-current="page" href="{{route('my-product')}}" title="This link direct to Your Products" wire:navigate>Produk saya</a>
                 </li>
                 <li class="nav-item {{ Route::is('orders') ? 'active' : '' }}" key="index">
                     <a class="nav-link" aria-current="page" href="#" title="This link direct to Order">Pesanan</a>
