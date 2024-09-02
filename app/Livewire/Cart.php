@@ -50,12 +50,21 @@ class Cart extends Component
         }
     }
 
+    public function removeCart($id){
+        $deleted_cart = ModelsCart::destroy($id);
+        if($deleted_cart){
+            toast('Berhasil hapus item', 'success');
+        }
+        return $this->redirect('/cart', true);
+    }
+
     public function render(FurnitureAPIService $service)
     {
         $carts = ModelsCart::all();
 
         foreach ($carts as $cart) {
             $productDetails = $service->allProduct($cart->product_name);
+            $cart->seller = $productDetails[0]['seller_name'] ?? null;
             $cart->image_url = $productDetails[0]['img_link'] ?? null;
         }
 

@@ -6,7 +6,7 @@
             <div class="mb-3 card text-center">
                 <div class="card-header d-flex justify-content-between">
                     <input class="form-check-input" type="checkbox" wire:click="checkedCart({{$cart->id}})">
-                    <div class="p-2 flex-fill text-start fw-bold">Kreasi Pak Hasan</div>
+                    <div class="p-2 flex-fill text-start fw-bold">{{"Toko ".$cart->seller}}</div>
                     <div class="p-2 flex-fill text-end text-success fst-italic fw-bold">BEBAS ONGKIR</div>
                 </div>
                 <div class="card-body d-flex justify-content-between py-3">
@@ -24,8 +24,13 @@
                                 <div class="me-3">
                                     <i class="bi bi-pencil-square fs-4"></i>
                                 </div>
-                                <div>
+                                <div class="me-3">
                                     <i class="bi bi-heart fs-4 addWishlistButton" onclick="addToWishlist()"></i>
+                                </div>
+                                <div>
+                                    <a class="icon-link icon-link-hover text-danger" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" wire:click="removeCart('{{$cart->id}}')">
+                                        <i class="bi bi-trash fs-4"></i>
+                                    </a>
                                 </div>
                             </div>
                             <div class="input-group d-flex justify-content-center align-items-center">
