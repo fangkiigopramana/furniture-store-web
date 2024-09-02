@@ -34,8 +34,12 @@
                 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model="password"
-                        placeholder="Masukkan password..." aria-describedby="passwordHelp" required>
+                    <div class="input-group">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model="password" id="password" placeholder="Masukkan password..." aria-describedby="passwordHelp" required>
+                        <button type="button" class="btn btn-secondary" id="togglePasswordBtn">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+                    </div>
                     @error('password')
                         <div id="passwordlHelp" class="form-text text-danger">{{$message}}</div>
                     @enderror
@@ -53,3 +57,16 @@
         </div>
     </div>
 </section>
+
+@push('script')
+<script>
+    document.getElementById('togglePasswordBtn').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+        } else {
+            passwordInput.type = 'password';
+        }
+    });
+</script>
+@endpush
