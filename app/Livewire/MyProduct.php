@@ -10,7 +10,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 class MyProduct extends Component
 {
     public $types = [];
-    public $token = "";
     
     #[Rule('required')]
     public $name = "";
@@ -34,24 +33,24 @@ class MyProduct extends Component
     {
 
         $service = new FurnitureAPIService();
-        $login = $service->login(auth()->user()->email, auth()->user()->password);
-        $this->token = $login['token'];
 
-        if (empty($login)) {
+        if (empty(auth()->user())) {
             Alert::error('Gagal Tambah Data','Bukan Akun Seller');
         }
 
+        
         $datas = [
             'name' => $this->name,
             'type' => $this->type_product,
-            'seller' => auth()->user()->name,
+            'seller_email' => auth()->user()->email,
             'description' => $this->description,
             'price' => $this->price,
             'img_link' => $this->img_link,
         ];
 
-        $service->addNewProduct($this->token, $datas);
-        dd($service->allProduct(''));
+        $service->addNewProduct(session('token'), $datas);
+
+        return redirect('/my-product');
     }
 
     public function render()

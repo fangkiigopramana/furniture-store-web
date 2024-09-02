@@ -14,6 +14,7 @@ class FurnitureAPIService
         $all_product = $client->request('GET', config('services.furniture_api.url') . '/products?name=' . $name);
 
         if ($all_product->getStatusCode() == 200) {
+            $response = $all_product->getStatusCode();
             $response = json_decode($all_product->getBody()->getContents(), true)['datas'];
         } else {
             $response = [];
@@ -113,6 +114,7 @@ class FurnitureAPIService
                     'Accept' => 'application/json',         
                 ],
                 'json' => [
+                    'seller_email' => $datas['seller_email'],
                     'name' => $datas['name'],
                     'type' => $datas['type'],
                     'description' => $datas['description'],

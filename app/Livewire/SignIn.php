@@ -19,14 +19,13 @@ class SignIn extends Component
 
     public function validation()
     {
+        $service = new FurnitureAPIService();
+        $login = $service->login([
+            'email' => $this->email,
+            'password' => $this->password,
+        ]);
 
-        if (Auth::attempt($this->validate())) {
-            $service = new FurnitureAPIService();
-            $login = $service->login([
-                'email' => $this->email,
-                'password' => $this->password,
-            ]);
-
+        if (Auth::attempt($this->validate()) && isset($login['token'])) {
             $token = $login['token'];
             session(['token' => $token]);
             Alert::success('Success', 'Login Successfully');
