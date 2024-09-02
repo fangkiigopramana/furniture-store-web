@@ -8,10 +8,25 @@ use GuzzleHttp\Exception\RequestException;
 class FurnitureAPIService
 {
 
-    public function allProduct($name)
+    public function allProduct($name = '')
     {
         $client = new Client();
         $all_product = $client->request('GET', config('services.furniture_api.url') . '/products?name=' . $name);
+
+        if ($all_product->getStatusCode() == 200) {
+            $response = $all_product->getStatusCode();
+            $response = json_decode($all_product->getBody()->getContents(), true)['datas'];
+        } else {
+            $response = [];
+        }
+
+        return $response;
+    }
+
+    public function getProductByOwner($email)
+    {
+        $client = new Client();
+        $all_product = $client->request('GET', config('services.furniture_api.url') . '/products?seller=' . $email);
 
         if ($all_product->getStatusCode() == 200) {
             $response = $all_product->getStatusCode();

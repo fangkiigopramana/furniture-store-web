@@ -93,7 +93,7 @@
             </div>
         </div>
 
-        @if (isset($product))
+        @if (isset($products))
 
             @foreach ($products as $product)
                 <div class="d-flex align-items-center mb-5">
@@ -105,8 +105,8 @@
                     <!-- Product Details -->
                     <div class="me-3" style="padding-right: 50px">
                         <p class="text-muted mb-1">{{ $product["type"] }}</p>
-                        <p class="fw-bold text-dark mb-1" style="font-size: 20px;">{{ $product["name"] }}</p>
-                        <p class="text-muted mb-0" style="font-size: 17px;">Happiness is A Butterfly</p>
+                        <p class="fw-bold text-dark mb-1" style="font-size: 15px;">{{ $product["name"] }}</p>
+                        <p class="text-muted mb-0" style="font-size: 12px;">Happiness is A Butterfly</p>
                     </div>
                     <!-- Added Date -->
                     <div class="me-3" style="padding-right: 50px">
