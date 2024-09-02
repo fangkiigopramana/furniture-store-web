@@ -8,43 +8,33 @@ use GuzzleHttp\Exception\RequestException;
 class FurnitureAPIService
 {
 
-    public function allProduct($name = '')
+    public function allProduct(string $name = " ", string $type = " ", int $limit = 20, string $seller = " ")
     {
         $client = new Client();
-        $all_product = $client->request('GET', config('services.furniture_api.url') . '/products?name=' . $name);
+
+        $queryParameters = [];
+
+        if ($name) {
+            $queryParameters['name'] = $name;
+        }
+
+        if ($type) {
+            $queryParameters['type'] = $type;
+        }
+    
+        if ($limit) {
+            $queryParameters['limit'] = $limit;
+        }
+    
+        if ($seller) {
+            $queryParameters['seller'] = $seller;
+        }
+
+        $all_product = $client->request('GET', config('services.furniture_api.url') . '/products?'.http_build_query($queryParameters));
 
         if ($all_product->getStatusCode() == 200) {
             $response = $all_product->getStatusCode();
             $response = json_decode($all_product->getBody()->getContents(), true)['datas'];
-        } else {
-            $response = [];
-        }
-
-        return $response;
-    }
-
-    public function getProductByOwner($email)
-    {
-        $client = new Client();
-        $all_product = $client->request('GET', config('services.furniture_api.url') . '/products?seller=' . $email);
-
-        if ($all_product->getStatusCode() == 200) {
-            $response = $all_product->getStatusCode();
-            $response = json_decode($all_product->getBody()->getContents(), true)['datas'];
-        } else {
-            $response = [];
-        }
-
-        return $response;
-    }
-
-    public function oneProduct($limit = 1, $product_name)
-    {
-        $client = new Client();
-        $one_product = $client->request('GET', config('services.furniture_api.url') . '/products?limit=' . $limit . '&name=' . $product_name);
-
-        if ($one_product->getStatusCode() == 200) {
-            $response = json_decode($one_product->getBody()->getContents(), true)['datas'][0];
         } else {
             $response = [];
         }

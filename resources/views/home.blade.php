@@ -36,13 +36,13 @@
                <!-- Start Column-->
                @foreach ($best_products as $product )
                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" key="{{$loop->iteration}}">
-                   <a class="product-item" href="#">
+                   <a class="product-item" type="button" href="{{route('product_catalog')}}" wire:navigate>
                        <img src="{{$product['img_link']}}" alt="Image" class="img-fluid product-thumbnail">
                        <h3 class="product-title">{{ $product['name'] }}</h3>
                        <strong class="product-price">{{ $product['price'] }}</strong>
 
-                       <span class="icon-cross">
-                           <img src="{{asset('/assets/images/cross.svg')}}" class="img-fluid">
+                       <span class="icon-cross p-3">
+                           <img src="{{asset('/assets/images/cart.svg')}}" class="img-fluid">
                        </span>
                    </a>
                </div>

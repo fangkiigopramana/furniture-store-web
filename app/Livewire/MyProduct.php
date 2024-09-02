@@ -56,7 +56,7 @@ class MyProduct extends Component
     public function render()
     {
         $service = new FurnitureAPIService();
-        $products = $service->getProductByOwner(auth()->user()->email);
+        $products = $service->allProduct(" ", " ", 20,auth()->user()->email);
 
         return view('my-product', [
             'products' => $products,

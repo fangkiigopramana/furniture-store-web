@@ -9,7 +9,7 @@ class Home extends Component
 {
     public function render(FurnitureAPIService $furnitureService)
     {
-        $best_products = $furnitureService->allProduct(3);
+        $best_products = $furnitureService->allProduct(" "," ", 3, " ");
         $types = $furnitureService->allType();
 
         return view('home', compact('best_products','types'));

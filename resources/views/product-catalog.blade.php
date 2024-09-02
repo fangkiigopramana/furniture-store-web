@@ -18,7 +18,7 @@
                         <strong class="product-price">{{ $product['price'] }}</strong>
 
                         <span class="icon-cross">
-                            <img src="../assets/images/cross.svg" class="img-fluid">
+                            <img src="../assets/images/cart.svg" class="img-fluid p-3">
                         </span>
                     </a>
                 </div>
