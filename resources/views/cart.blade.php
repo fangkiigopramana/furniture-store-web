@@ -1,18 +1,18 @@
 <section class="container pt-5">
-    
+
     <div class="mt-3">
 
         @foreach ($carts as $cart)
             <div class="mb-3 card text-center">
                 <div class="card-header d-flex justify-content-between">
-                    <input class="form-check-input" type="checkbox" wire:click="checkedCart({{$cart->id}})">
-                    <div class="p-2 flex-fill text-start fw-bold">{{"Toko ".$cart->seller}}</div>
+                    <input class="form-check-input" type="checkbox" wire:click="checkedCart({{ $cart->id }})">
+                    <div class="p-2 flex-fill text-start fw-bold">{{ "Toko " . $cart->seller }}</div>
                     <div class="p-2 flex-fill text-end text-success fst-italic fw-bold">BEBAS ONGKIR</div>
                 </div>
                 <div class="card-body d-flex justify-content-between py-3">
                     <div class="p-2 flex-fill text-center">
-                        <img src="{{$cart->image_url}}"
-                            class="img-thumbnail" width="200" height="200" alt="...">
+                        <img src="{{ $cart->image_url }}" class="img-thumbnail" width="200" height="200"
+                            alt="...">
                     </div>
                     <div class="p-2 flex-fill">
                         <ul class="list-unstyled text-start mb-4">
@@ -28,16 +28,20 @@
                                     <i class="bi bi-heart fs-4 addWishlistButton" onclick="addToWishlist()"></i>
                                 </div>
                                 <div>
-                                    <a class="icon-link icon-link-hover text-danger" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" wire:click="removeCart('{{$cart->id}}')">
+                                    <a class="icon-link icon-link-hover text-danger"
+                                        style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);"
+                                        wire:click="removeCart('{{ $cart->id }}')">
                                         <i class="bi bi-trash fs-4"></i>
                                     </a>
                                 </div>
                             </div>
                             <div class="input-group d-flex justify-content-center align-items-center">
-                                <button class="btn btn-outline-secondary btn-sm" type="button" wire:click="decrease('{{ $cart->id }}')">-</button>
+                                <button class="btn btn-outline-secondary btn-sm" type="button"
+                                    wire:click="decrease('{{ $cart->id }}')">-</button>
                                 <span class="form-control text-center px-3">{{ $cart->quantity }}</span>
-                                <button class="btn btn-outline-secondary btn-sm" type="button" wire:click="increase('{{ $cart->id }}')">+</button>
-                            </div>                            
+                                <button class="btn btn-outline-secondary btn-sm" type="button"
+                                    wire:click="increase('{{ $cart->id }}')">+</button>
+                            </div>
                         </div>
 
                     </div>
@@ -49,11 +53,12 @@
     </div>
     <div class="alert alert-primary fixed-bottom container-fluid p-3 mb-0" role="alert">
         <div class="d-flex justify-content-between align-items-center container">
-            <p wire:poll class="mb-0 fs-5">Total: <span class="fw-bold">{{ 'Rp '.number_format($sum, 0, '', '.') }}</span></p>
-            <button type="button" class="btn btn-success btn-lg">Beli</button>
+            <p wire:poll class="mb-0 fs-5">Total: <span
+                    class="fw-bold">{{ "Rp " . number_format($sum, 0, "", ".") }}</span></p>
+            <a type="button" class="btn btn-success btn-lg" wire:click="checkout">Beli</a>
         </div>
     </div>
-    
+
 </section>
 
 @push("script")

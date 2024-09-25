@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Livewire\Cart;
 use App\Livewire\FAQ;
 use App\Livewire\Home;
@@ -7,6 +8,7 @@ use App\Livewire\MyProduct;
 use App\Livewire\ProductCatalog;
 use App\Livewire\SignIn;
 use App\Livewire\SignUp;
+use App\Livewire\Transaction;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,10 +26,13 @@ Route::middleware('auth')->group(function (){
         Route::get('/product-catalog', ProductCatalog::class)->name('product_catalog');
         Route::get('/faq', FAQ::class)->name('faq');
         Route::get('/cart', Cart::class)->name('cart');
+        Route::get('/orders', Transaction::class)->name('order');
     
     });
 
     Route::get('/sign-out', [SignIn::class,'signout'])->name('sign-out');
 
 });
+
+Route::get('/coba-midtrans', [PaymentController::class, 'createCharge']);
 
