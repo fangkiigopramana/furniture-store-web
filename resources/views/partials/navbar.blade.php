@@ -50,7 +50,12 @@
                         </ul>
                         </div>
                 </li>
-                <li><a class="nav-link" href="{{route('cart')}}" wire:navigate><img src="{{asset('/assets/images/cart.svg')}}" alt="Cart Image"></a></li>
+                @hasanyrole('Buyer')
+                <li>
+                    <a class="nav-link" href="{{route('cart')}}" wire:navigate><img src="{{asset('/assets/images/cart.svg')}}" alt="Cart Image">
+                    </a>
+                </li>
+                @endhasanyrole
             </ul>
             @endauth
             @guest                    

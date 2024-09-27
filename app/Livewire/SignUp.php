@@ -31,19 +31,9 @@ class SignUp extends Component
         ]);
         $user->assignRole($validatedData['role']);
         $user->save();
-
-        if ($validatedData['role'] === 'Seller') {
-            $service = new FurnitureAPIService();
-            $service->register([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'password' => $validatedData['password'],
-            ]);
-        }
-    
         Alert::success('Success', 'Sign Up Berhasil');
     
-        return $this->redirect('/');
+        return $this->redirect('/sign-in', true);
     }
 
     public function render()

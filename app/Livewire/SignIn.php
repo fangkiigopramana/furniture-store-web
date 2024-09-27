@@ -19,26 +19,21 @@ class SignIn extends Component
 
     public function validation()
     {
-        $service = new FurnitureAPIService();
-        $login = $service->login([
-            'email' => $this->email,
-            'password' => $this->password,
+        $validator  = $this->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
 
-        if (Auth::attempt($this->validate()) && isset($login['token'])) {
-            $token = $login['token'];
-            session(['token' => $token]);
-            Alert::success('Success', 'Login Successfully');
-            return redirect('/');
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+            Alert::success('Success', 'Sign In Berhasil');
+            return $this->redirect('/product-catalog', true);
         }
 
-        throw ValidationException::withMessages([
-            'email' => "The provided credential do not match our record",
-        ]);
-
+        return redirect()->back()->withErrors($validator)->withInput();
     }
 
-    public function signout(){
+    public function signout()
+    {
         auth()->logout();
         return redirect()->route('login');
     }

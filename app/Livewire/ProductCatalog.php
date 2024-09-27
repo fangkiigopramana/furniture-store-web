@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Cart;
 use App\Services\FurnitureAPIService;
+use App\Services\ProductService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -12,9 +13,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ProductCatalog extends Component
 {
 
-    public function addToCart(FurnitureAPIService $service, $product_name)
+    public function addToCart(ProductService $service, $product_name)
     {
-        $product = $service->allProduct($product_name, " ", 1, " ")[0];
+        $product = $service->allProduct($product_name)[0];
         $product_name = $product['name'];
         $price = $product['price'];
 
@@ -42,7 +43,7 @@ class ProductCatalog extends Component
     #[Url()]
     public $search = '';
 
-    public function render(FurnitureAPIService $furnitureService)
+    public function render(ProductService $furnitureService)
     {
         $all_products = $furnitureService->allProduct($this->search);
         return view('product-catalog', [

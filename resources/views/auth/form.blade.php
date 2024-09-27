@@ -8,7 +8,7 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Username</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name"
-                            value="{{ old("name", " ") }}" placeholder="Masukkan Username..." aria-describedby="nameHelp" required>
+                            value="{{ old("name", " ") }}" placeholder="Masukkan Username..." aria-describedby="nameHelp" required @if ($title !== "Sign In") autofocus @endif>
                         @error('name')
                             <div id="namelHelp" class="form-text text-danger">{{$message}}</div>
                         @enderror
@@ -26,7 +26,7 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" wire:model="email"
-                        value="{{ old("email", " ") }}" placeholder="Masukkan email address..." aria-describedby="emailHelp" required>
+                        value="{{ old("email", " ") }}" placeholder="Masukkan email address..." aria-describedby="emailHelp" required @if ($title == "Sign In") autofocus @endif>
                     @error('email')
                         <div id="emailHelp" class="form-text text-danger">{{$message}}</div>
                     @enderror
