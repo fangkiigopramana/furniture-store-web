@@ -5,6 +5,7 @@ use App\Livewire\Cart;
 use App\Livewire\FAQ;
 use App\Livewire\Home;
 use App\Livewire\MyProduct;
+use App\Livewire\Order;
 use App\Livewire\ProductCatalog;
 use App\Livewire\SignIn;
 use App\Livewire\SignUp;
@@ -26,7 +27,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/product-catalog', ProductCatalog::class)->name('product_catalog');
         Route::get('/faq', FAQ::class)->name('faq');
         Route::get('/cart', Cart::class)->name('cart');
-        Route::get('/orders', Transaction::class)->name('order');
+        Route::get('/myorder', Order::class)->name('myorder');
     
     });
 
