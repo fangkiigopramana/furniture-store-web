@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamp('order_date');
-            $table->decimal('total_amount');
+            $table->decimal('total_amount',10,2);
             $table->timestamps();
         });
     }
