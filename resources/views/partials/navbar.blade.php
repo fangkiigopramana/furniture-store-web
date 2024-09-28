@@ -32,9 +32,11 @@
                     <a class="nav-link" aria-current="page" href="#" title="This link direct to Order">Penjualan</a>
                 </li>
                 @endhasanyrole
+                @auth
                 <li>
                     <a class="nav-link" href="{{route('sign-out')}}" wire:navigate>Sign out</a>
                 </li>
+                @endauth
             @guest                    
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item {{ Route::is('login') ? 'active' : '' }}">

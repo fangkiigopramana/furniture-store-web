@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RoleSeeder extends Seeder
 {
@@ -25,5 +27,12 @@ class RoleSeeder extends Seeder
         ];
 
         DB::table('roles')->insert($datas);
+
+        $system  = User::create([
+            'name' => 'System',
+            'email' => 'system@gmail.com',
+            'password' => Hash::make('password_system_123'),
+        ]);
+        $system->assignRole('Seller');
     }
 }

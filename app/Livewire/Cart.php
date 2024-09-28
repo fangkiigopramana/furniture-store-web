@@ -7,7 +7,11 @@ use Midtrans\Config;
 use Livewire\Component;
 use App\Models\Transaction;
 use App\Models\Cart as ModelsCart;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use App\Services\FurnitureAPIService;
+use Illuminate\Support\Facades\Auth;
 
 class Cart extends Component
 {
@@ -28,7 +32,7 @@ class Cart extends Component
         $product->quantity++;
         $product->save();
 
-        // Hanya update total_purchase jika item sudah checked
+
         if (in_array($product_id, $this->checkedItems)) {
             $this->total_purchase += $product->price;
         }
@@ -41,7 +45,7 @@ class Cart extends Component
             $product->quantity--;
             $product->save();
 
-            // Hanya update total_purchase jika item sudah checked
+
             if (in_array($product_id, $this->checkedItems)) {
                 $this->total_purchase -= $product->price;
             }
@@ -72,9 +76,10 @@ class Cart extends Component
 
     public function checkout()
     {
+        // try {
         $params = array(
             'transaction_details' => array(
-                'order_id' => rand(),
+                'order_id' => 'ORDER-' . rand(),
                 'gross_amount' => $this->total_purchase,
             ),
             'customer_details' => array(
@@ -86,29 +91,50 @@ class Cart extends Component
         );
 
         $transaction = Snap::createTransaction($params);
-        Transaction::create([
+        $new_order = Order::create([
             'user_id' => auth()->user()->id,
+            'order_date' => now(),
             'total_amount' => $this->total_purchase,
-            'transaction_date' => now(),
-            'snap_token' => $transaction->token
         ]);
+
+
+        foreach ($this->checkedItems as $item) {
+            $product = Product::find($item);
+            if (!is_null($product)) {
+
+                $cart_data = auth()->user()->carts()
+                    ->where('product_id', $product->id)
+                    ->first(['quantity', 'price']);
+                if ($cart_data) {
+
+                    OrderItem::create([
+                        'order_id' => $new_order->id,
+                        'product_id' => $product->id,
+                        'quantity' => $cart_data->quantity,
+                        'price' => $cart_data->price,
+                        'subtotal' => $cart_data->price * $cart_data->quantity,
+                    ]);
+                }
+            }
+        }
 
         foreach ($this->checkedItems as $id_cart) {
             ModelsCart::find($id_cart)->delete();
         }
-
         return redirect()->away($transaction->redirect_url);
+        // } catch (\Exception $e) {
+
+        // session()->flash('error', 'Checkout gagal. Silakan coba lagi.');
+        // return redirect()->back();
+        // }
     }
 
-    public function render(FurnitureAPIService $service)
-    {
-        $carts = ModelsCart::where('user_id', auth()->user()->id)->get();;
 
-        foreach ($carts as $cart) {
-            $productDetails = $service->allProduct($cart->product_name);
-            $cart->seller = $productDetails[0]['seller_name'] ?? null;
-            $cart->image_url = $productDetails[0]['img_link'] ?? null;
-        }
+    public function render()
+    {
+        $carts = ModelsCart::with(['user', 'product'])
+            ->where('user_id', auth()->id())
+            ->get();
 
         return view('cart', [
             'carts' => $carts,

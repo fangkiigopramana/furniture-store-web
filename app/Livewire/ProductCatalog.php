@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Cart;
+use App\Models\Product;
 use App\Services\FurnitureAPIService;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\DB;
@@ -13,14 +14,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ProductCatalog extends Component
 {
 
-    public function addToCart(ProductService $service, $product_name)
+    public function addToCart(Product $product)
     {
-        $product = $service->allProduct($product_name)[0];
-        $product_name = $product['name'];
-        $price = $product['price'];
 
         $cartItem = Cart::where('user_id', auth()->id())
-            ->where('product_name', $product_name)
+            ->where('product_id', $product->id)
             ->first();
 
         if ($cartItem) {
@@ -28,15 +26,17 @@ class ProductCatalog extends Component
                 'quantity' => DB::raw('quantity + 1'),
             ]);
         } else {
-            Cart::create([
+            Cart::create(
+                [
                 'user_id' => auth()->id(),
-                'product_name' => $product_name,
+                'product_id' => $product->id,
                 'quantity' => 1,
-                'price' => $price,
-            ]);
+                'price' => $product->price,
+                ]
+            );
         }
 
-        toast($product_name . ' ditambahkan ke keranjang!', 'success');
+        toast($product->name . ' ditambahkan ke keranjang!', 'success');
         return $this->redirect('/product-catalog', true);
     }
 

@@ -12,7 +12,7 @@
                 <!-- Start Column-->
                 @foreach ($products as $product )
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" wire:key="{{ $product['name'] }}">
-                    <a class="product-item" type="button" wire:click="addToCart('{{ $product['name'] }}')">
+                    <a class="product-item" type="button" wire:click="addToCart('{{ $product['id'] }}')">
                         <img src="{{$product['img_link']}}" alt="Image" class="img-fluid product-thumbnail">
                         <h3 class="product-title">{{ $product['name'] }}</h3>
                         <strong class="product-price">{{ $product['price'] }}</strong>

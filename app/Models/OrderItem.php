@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Cart extends Model
+class OrderItem extends Model
 {
-    protected $fillable = ['user_id', 'product_id', 'quantity', 'price'];
+    protected $guarded = ['id'];
 
-    public function user():BelongsTo
+    public function order():BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Order::class);
     }
     
     public function product():BelongsTo
