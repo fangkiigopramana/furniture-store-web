@@ -14,7 +14,7 @@
                 <div class="card-body">
                     @foreach ($item->orderItems as $order)
                         
-                    <div class="row g-0">
+                    <div class="row g-0 mb-3">
                         <!-- Kolom gambar -->
                         <div class="col-12 col-md-3">
                             <img src="{{$order->product->img_link}}"

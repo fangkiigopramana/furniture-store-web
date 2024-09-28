@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="p-2 flex-fill">
                                     <ul class="list-unstyled text-start mb-4">
-                                        <li>{{ $cart->product_name }}</li>
+                                        <li>{{ $cart->product->name }}</li>
                                         <li class="fw-bold">{{ "Rp " . number_format($cart->price, 0, " ", ".") }}</li>
                                     </ul>
                                     <div class="d-flex justify-content-between align-items-center">
