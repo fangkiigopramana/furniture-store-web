@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamp('order_date');
             $table->decimal('total_amount',10,2);
+            $table->enum('payment_status',['pending','completed','failed'])->default('pending');
+            $table->timestamp('payment_date')->nullable();
+            $table->text('snap_token');
             $table->timestamps();
         });
     }

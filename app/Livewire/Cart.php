@@ -76,57 +76,53 @@ class Cart extends Component
 
     public function checkout()
     {
-        // try {
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => 'ORDER-' . rand(),
-                'gross_amount' => $this->total_purchase,
-            ),
-            'customer_details' => array(
-                'first_name' => auth()->user()->name,
-                'last_name' => auth()->user()->name,
-                'email' => auth()->user()->email,
-                'phone' => '08111222333',
-            ),
-        );
+        try {
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => 'ORDER-' . rand(),
+                    'gross_amount' => $this->total_purchase,
+                ),
+                'customer_details' => array(
+                    'first_name' => auth()->user()->name,
+                    'last_name' => auth()->user()->name,
+                    'email' => auth()->user()->email,
+                    'phone' => '08111222333',
+                ),
+            );
 
-        $transaction = Snap::createTransaction($params);
-        $new_order = Order::create([
-            'user_id' => auth()->user()->id,
-            'order_date' => now(),
-            'total_amount' => $this->total_purchase,
-        ]);
+            $transaction = Snap::createTransaction($params);
+            $new_order = Order::create([
+                'user_id' => auth()->user()->id,
+                'order_date' => now(),
+                'total_amount' => $this->total_purchase,
+                'snap_token' => $transaction->token,
+            ]);
 
 
-        foreach ($this->checkedItems as $item) {
-            $product = Product::find($item);
-            if (!is_null($product)) {
+            $carts = ModelsCart::with('product')
+                ->where('user_id', auth()->user()->id)
+                ->whereIn('id', $this->checkedItems)
+                ->get(['product_id', 'quantity', 'price']);
 
-                $cart_data = auth()->user()->carts()
-                    ->where('product_id', $product->id)
-                    ->first(['quantity', 'price']);
-                if ($cart_data) {
-
-                    OrderItem::create([
-                        'order_id' => $new_order->id,
-                        'product_id' => $product->id,
-                        'quantity' => $cart_data->quantity,
-                        'price' => $cart_data->price,
-                        'subtotal' => $cart_data->price * $cart_data->quantity,
-                    ]);
-                }
+            foreach ($carts as $item) {
+                OrderItem::create([
+                    'order_id' => $new_order->id,
+                    'product_id' => $item->product->id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->product->price,
+                    'subtotal' => $item->product->price * $item->quantity,
+                ]);
             }
-        }
 
-        foreach ($this->checkedItems as $id_cart) {
-            ModelsCart::find($id_cart)->delete();
-        }
-        return redirect()->away($transaction->redirect_url);
-        // } catch (\Exception $e) {
+            foreach ($carts as $cart) {
+                $cart->delete();
+            }
+            return redirect()->away($transaction->redirect_url);
+        } catch (\Exception $e) {
 
-        // session()->flash('error', 'Checkout gagal. Silakan coba lagi.');
-        // return redirect()->back();
-        // }
+            session()->flash('error', 'Checkout gagal. Silakan coba lagi.');
+            return redirect()->back();
+        }
     }
 
 
