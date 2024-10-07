@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <p class="mb-0 fw-bold">Store Name</p>
-                        <p class="mb-0 text-danger">Order statuse</p>
+                        <p class="mb-0 fw-bold">{{$item->order_date}}</p>
+                        <p class="mb-0 text-danger text-capitalize">{{'payment '.$item->payment_status}}</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -48,7 +48,7 @@
                     <!-- Tombol -->
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-danger me-2">Batalkan pesanan</button>
-                        <button type="button" class="btn btn-success">Bayar sekarang</button>
+                        <button type="button" class="btn btn-success" wire:click="payNow('{{$item->id}}')">Bayar sekarang</button>
                     </div>
                 </div>                
             </div>

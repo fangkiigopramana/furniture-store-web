@@ -117,7 +117,7 @@ class Cart extends Component
             foreach ($carts as $cart) {
                 $cart->delete();
             }
-            return redirect()->away($transaction->redirect_url);
+            return $this->redirect('/product-catalog',true);
         } catch (\Exception $e) {
 
             session()->flash('error', 'Checkout gagal. Silakan coba lagi.');

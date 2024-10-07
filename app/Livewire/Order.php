@@ -8,6 +8,11 @@ use Livewire\Component;
 
 class Order extends Component
 {
+    public function payNow(ModelsOrder $order_id)
+    {
+        dd($order_id);
+    }
+
     public function render()
     {
         $myorders = ModelsOrder::with(['orderItems','orderItems.product','orderItems.product.seller'])->where('user_id',auth()->user()->id)->get();
